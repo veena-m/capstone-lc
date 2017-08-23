@@ -2,12 +2,18 @@ import os
 from flask import Flask, render_template, request, redirect,json
 import pandas as pd
 import pickle
+import sys
+import logging
 
 import get_lcdata as lcdata
 import plot_data as pltdata
 
 
 app = Flask(__name__)
+
+app.logger.addHandler(logging.StreamHandler(sys.stdout))
+app.logger.setLevel(logging.ERROR)
+
 
 @app.route('/')
 def main():
@@ -49,6 +55,8 @@ def get_data():
 def get_lcdata_plots():
     if request.method == 'GET':
         data_df = lcdata.get_lcdata()
+        print 'in credit grade'
+        print len(data_df)
         if len(data_df):
             script, div = pltdata.plot_credit_grade_data(data_df)
             return render_template('graph_grade.html', script=script, div=div)
