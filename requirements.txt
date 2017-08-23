@@ -7,7 +7,8 @@ oauthlib==0.7.2
 requests>=2.2.1
 simplejson==3.8.0
 bokeh==0.12.6
-scikit-learn==0.18
-pandas==0.19.0 
-numpy==1.11.2
-scipy==0.18.1
+scikit-learn==0.18.1
+pandas==0.20.1 
+xlrd==0.9.4
+numpy==1.11.3
+scipy==0.19.0
