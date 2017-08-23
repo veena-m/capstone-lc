@@ -31,19 +31,19 @@ def get_data():
     if not amount or not term or not grade or not income or not home_ownership:
         return render_template('error.html', message='Please fill in all of the fields.')
     prob=0
-    rfmdl = lcdata.build_model()
+    #rfmdl = lcdata.build_model()
     
     #print amount, term, grade, income,prob
     #Inputs to model
     X = pd.DataFrame({'loan_amnt':float(amount), 'term':term, 'grade':grade, 'annual_inc':float(income), 'home_ownership': home_ownership}, index = range(1))
     
-    #with open('rfclf_model.pkl', 'r') as input:
-    #    rfmodel = pickle.load(input)
+    with open('rfclf_model.pkl', 'r') as input:
+        rfmodel = pickle.load(input)
     
-    #prob = rfmodel.predict_proba(X)
-    prob = rfmdl.predict_proba(X)
-    result = '{:,.2%}'.format(prob[0][0])    
-    return render_template('results.html', data = result)
+    prob = rfmodel.predict_proba(X)
+    #prob = rfmdl.predict_proba(X)
+    result1 = '{:,.2%}'.format(prob[0][0])    
+    return render_template('results.html', data = result1)
     
 @app.route('/credit_grade_viz', methods=['GET', 'POST'])
 def get_lcdata_plots():
