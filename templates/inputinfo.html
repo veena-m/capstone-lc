@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+
+  <div class=metanav>
+			 <h4>
+				 Please enter Applicant info:
+			 </h4>
+			 <form id='params' method='post' action='results' >
+				 <p>
+					 Loan Amount: <input type='text' name='amount' />
+				 </p>
+				 <p>
+					 Term: <select name='term' >
+                     <option value ="36mths">36 months</option>
+                  <option value ="60mths">60 months</option>
+                </select>
+                     
+				 </p>
+				 <p>
+					 Credit grade : <select name='grade' >
+                     <option value="A">A</option>
+                  <option value ="B">B</option>
+                  <option value ="C">C</option>
+                     <option value="D">D</option>
+                  <option value ="E">E</option>
+                  <option value ="F">F</option>
+                     <option value="G">G</option>
+                  <option value ="H">H</option>
+                  
+                </select>
+               
+				 </p>
+				 <p>
+					 Annual income: <input type='text' name='income' />
+				 </p>
+				 <p>
+                   Home Ownership: <select name="home_ownership">
+                  <option value="rent">Rent</option>
+                  <option value ="own">Own</option>
+                  <option value ="mortgage">Mortgage</option>
+                </select>
+                     
+
+                 </p>
+					 <input type='submit' value='Submit' />
+				 </p>
+			 </form>
+ </div>
+ 
+ {% endblock %}

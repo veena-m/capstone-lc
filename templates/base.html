@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head><!-- BEGIN HEAD -->
+
+	<title>Credit Risk Predicter{% block title %}{% endblock %}</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+	<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	
+	<!-- <link rel="shortcut icon" href="{{ url_for('static', filename='ico/favicon.ico') }}"> -->
+
+	{% block head %}
+	{% endblock %}
+
+    </head><!-- END HEAD -->
+
+    <body><!-- BEGIN BODY -----------------  -->
+
+	{% block navbar %}
+	<nav class="navbar navbar-inverse" role="navigation">
+	  <div class="container-fluid">
+	    <!-- Brand and toggle get grouped for better mobile display -->
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" href="/">HOME</a>
+	    </div>
+
+	    <!-- Collect the nav links, forms, and other content for toggling -->
+	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	      <ul class="nav navbar-nav">
+			<li><a href="/predictor">Credit Risk Predictor</a></li>
+			<li><a href="/credit_grade_viz">Credit grade </a></li>
+                <li><a href="/loan_status_viz">Loan Status</a></li>
+                <li><a href="/by_state_viz">By State </a></li>
+              			<li><a href="/source">Source</a></li> 
+	      </ul>
+           
+            
+      
+	    </div><!-- /.navbar-collapse -->
+	  </div><!-- /.container-fluid -->
+	</nav>
+	
+	<!--
+	<script>
+	    $(".nav li").on("click", function() {
+	      $(".nav li").removeClass("active");
+	      $(this).addClass("active");
+	    });
+	</script>
+	-->
+
+	{% endblock %}
+
+
+	<div class="container page">
+		<div align="center">
+			{% block content %}
+			{% endblock %}
+	    </div>
+		<hr>
+		{% block footer %}
+		
+		{% endblock %}
+	</div>
+
+	
+	{% block js_footer %}
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	{% endblock %}
+
+    </body><!-- END BODY ---------------  -->
+</html>
