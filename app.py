@@ -39,7 +39,7 @@ def get_data():
     
     #rfmdl = lcdata.build_model()
     
-    print amount, term, grade, income,prob
+    print amount, term, grade, income
     #Inputs to model
     X = pd.DataFrame({'loan_amnt':float(amount), 'term':term, 'grade':grade, 'annual_inc':float(income), 'home_ownership': home_ownership}, index = range(1))
     
@@ -51,6 +51,7 @@ def get_data():
     f.close()
     
     prob = rfmodel.predict_proba(X)
+    print prob
     #prob = rfmdl.predict_proba(X)
     result1 = '{:,.2%}'.format(prob[0][0])    
     return render_template('results.html', data = result1)
