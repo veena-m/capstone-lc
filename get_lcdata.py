@@ -38,6 +38,9 @@ def get_lcdata():
     df = pd.read_excel('./data/LoanStats3a.xlsx',skiprows=[0],parse_cols = "A:BA,BE,CA,CB,DB,DC")
     #df = df[['member_id','loan_amnt','int_rate','term','grade','home_ownership','annual_inc','purpose','addr_state','loan_status']]
     print len(df)
+    with open('df_data.pkl', 'w') as fp:
+        pickle.dump(df,fp) 
+
     return df
        
 def build_model():

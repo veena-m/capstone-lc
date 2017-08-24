@@ -43,8 +43,12 @@ def get_data():
     #Inputs to model
     X = pd.DataFrame({'loan_amnt':float(amount), 'term':term, 'grade':grade, 'annual_inc':float(income), 'home_ownership': home_ownership}, index = range(1))
     
-    with open('rfclf_model.pkl', 'r') as input:
-        rfmodel = pickle.load(input)
+    #with open('./data/rfclf_model.pkl', 'r') as input:
+    #    rfmodel = pickle.load(input)
+        
+    f = open('./data/rfclf_model.pkl', 'r')
+    rfmodel = pickle.load(f)          
+    f.close()
     
     prob = rfmodel.predict_proba(X)
     #prob = rfmdl.predict_proba(X)
@@ -54,7 +58,11 @@ def get_data():
 @app.route('/credit_grade_viz', methods=['GET', 'POST'])
 def get_lcdata_plots():
     if request.method == 'GET':
-        data_df = lcdata.get_lcdata()
+        #data_df = lcdata.get_lcdata()
+        
+        with open('./data/df_data.pkl', 'r') as data:
+            data_df = pickle.load(data)
+       
         print 'in credit grade'
         print len(data_df)
         if len(data_df):
