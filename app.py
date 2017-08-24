@@ -36,10 +36,10 @@ def get_data():
     
     if not amount or not term or not grade or not income or not home_ownership:
         return render_template('error.html', message='Please fill in all of the fields.')
-    prob=0
+    
     #rfmdl = lcdata.build_model()
     
-    #print amount, term, grade, income,prob
+    print amount, term, grade, income,prob
     #Inputs to model
     X = pd.DataFrame({'loan_amnt':float(amount), 'term':term, 'grade':grade, 'annual_inc':float(income), 'home_ownership': home_ownership}, index = range(1))
     
@@ -67,8 +67,6 @@ def get_lcdata_plots():
         print len(data_df)
         if len(data_df):
             script, div = pltdata.plot_credit_grade_data(data_df)
-            print script
-            print div
             return render_template('graph_grade.html', script=script, div=div)
     else:
         return redirect('/results')
