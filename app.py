@@ -67,6 +67,8 @@ def get_lcdata_plots():
         print len(data_df)
         if len(data_df):
             script, div = pltdata.plot_credit_grade_data(data_df)
+            print script
+            print div
             return render_template('graph_grade.html', script=script, div=div)
     else:
         return redirect('/results')
