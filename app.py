@@ -11,8 +11,8 @@ import plot_data as pltdata
 
 app = Flask(__name__)
 
-app.logger.addHandler(logging.StreamHandler(sys.stdout))
-app.logger.setLevel(logging.ERROR)
+app.logger.addHandler(logging.StreamHandler(sys.stdout))    #to display error in heroku logs
+app.logger.setLevel(logging.ERROR)                          #to display error in  heroku logs
 
 
 @app.route('/')
@@ -37,18 +37,18 @@ def get_data():
     if not amount or not term or not grade or not income or not home_ownership:
         return render_template('error.html', message='Please fill in all of the fields.')
     
-    #rfmdl = lcdata.build_model()
+    #rfmdl = lcdata.build_model()  #building model takes too long  on heroku - has 30 sec timeout
     
     print amount, term, grade, income
     #Inputs to model
     X = pd.DataFrame({'loan_amnt':float(amount), 'term':term, 'grade':grade, 'annual_inc':float(income), 'home_ownership': home_ownership}, index = range(1))
     
-    #with open('./data/rfclf_model.pkl', 'r') as input:
-    #    rfmodel = pickle.load(input)
+    with open('./data/rfclf_model.pkl', 'rb') as input:
+        rfmodel = pickle.load(input)
         
-    f = open('./data/rfclf_model.pkl', 'r')
-    rfmodel = pickle.load(f)          
-    f.close()
+    #f = open('./data/rfclf_model.pkl', 'r')
+    #rfmodel = pickle.load(f)          
+    #f.close()
     
     prob = rfmodel.predict_proba(X)
     print prob
@@ -59,9 +59,9 @@ def get_data():
 @app.route('/credit_grade_viz', methods=['GET', 'POST'])
 def get_lcdata_plots():
     if request.method == 'GET':
-        #data_df = lcdata.get_lcdata()
+        #data_df = lcdata.get_lcdata()    #takes too long on heroku
         
-        with open('./data/df_data.pkl', 'r') as data:
+        with open('./data/df_data.pkl', 'rb') as data:
             data_df = pickle.load(data)
        
         print 'in credit grade'
