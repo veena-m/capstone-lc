@@ -75,7 +75,9 @@ def get_lcdata_plots():
 @app.route('/by_state_viz', methods=['GET', 'POST'])
 def get_statedata_plots():
     if request.method == 'GET':
-        data_df = lcdata.get_lcdata()
+        #data_df = lcdata.get_lcdata()     #takes too long for heroku app
+        with open('./data/df_data.pkl', 'rb') as data:
+            data_df = pickle.load(data)
         if len(data_df):
             script, div = pltdata.plot_state_data(data_df)
             return render_template('graph_states.html', script=script, div=div)
@@ -85,7 +87,9 @@ def get_statedata_plots():
 @app.route('/loan_status_viz', methods=['GET', 'POST'])
 def get_loanstatus_plots():
     if request.method == 'GET':
-        data_df = lcdata.get_lcdata()
+        #data_df = lcdata.get_lcdata()
+        with open('./data/df_data.pkl', 'rb') as data:
+            data_df = pickle.load(data)
         if len(data_df):
             script, div = pltdata.plot_loan_status(data_df)
             return render_template('graph_ls.html', script=script, div=div)
