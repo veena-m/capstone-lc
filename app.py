@@ -37,17 +37,17 @@ def get_data():
     if not amount or not term or not grade or not income or not home_ownership:
         return render_template('error.html', message='Please fill in all of the fields.')
     
-    rfmdl = lcdata.build_model()  #building model takes too long  on heroku - has 30 sec timeout
+    rfmdl = lcdata.build_model()  #building random forest model 
     
     print amount, term, grade, income,home_ownership
+    
     #Inputs to model
     X = pd.DataFrame({'loan_amnt':float(amount), 'term':term, 'grade':grade, 'annual_inc':float(income), 'home_ownership': home_ownership}, index = range(1))
-    
+  
+    #Read model from pickle file
     #with open('./data/rfclf_model.pkl', 'rb') as input:
      #   rfmodel = pickle.load(input)
-   # X = pd.DataFrame({'loan_amnt':float(8000), 'term':'36mths', 'grade':'E', 'annual_inc':float(64000), 'home_ownership':'mortgage'}, index = range(1))
-        
-       
+              
     #prob = rfmodel.predict_proba(X)
         
     prob = rfmdl.predict_proba(X)
@@ -107,8 +107,8 @@ def index():
 
         
 #if __name__ == '__main__':
-#  app.run(port=33507)     #comment if running on DO
-# app.run(host='0.0.0.0')    #need this to run on DO local
+#  app.run(port=33507)     #comment if running on Digital Ocean
+# app.run(host='0.0.0.0')    #need this to test/run on DO local
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)         #for heroku app
