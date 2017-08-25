@@ -36,7 +36,8 @@ class MultiColumnLabelEncoder:
 def get_lcdata():
     
     df = pd.read_excel('./data/LoanStats3a.xlsx',skiprows=[0],parse_cols = "A:BA,BE,CA,CB,DB,DC")
-    #df = df[['member_id','loan_amnt','int_rate','term','grade','home_ownership','annual_inc','purpose','addr_state','loan_status']]
+    #reduce number of columns to those that are relevant 
+    df = df[['member_id','loan_amnt','int_rate','term','grade','home_ownership','annual_inc','purpose','addr_state','loan_status']]
     print len(df)
     with open('./data/df_data.pkl', 'wb') as fp:
         pickle.dump(df,fp) 
@@ -45,7 +46,10 @@ def get_lcdata():
        
 def build_model():
     
-    df = get_lcdata()
+    #df = get_lcdata()
+    with open('./data/df_data.pkl', 'rb') as data:
+            df = pickle.load(data)
+        
         
     #To build and train model consider only those loans that are Fully Paid or Charged off
     df_filtered = df[(df['loan_status'] == 'Fully Paid') | (df['loan_status'] == 'Charged Off')]
@@ -73,7 +77,7 @@ def build_model():
     trainX = data   
     ytrain = y      
     
-    rfpipe.fit_transform(trainX,ytrain)
+    rfpipe.fit(trainX,ytrain)
     
     with open('./data/rfclf_model.pkl', 'wb') as f:
         pickle.dump(rfpipe,f) 

@@ -37,22 +37,22 @@ def get_data():
     if not amount or not term or not grade or not income or not home_ownership:
         return render_template('error.html', message='Please fill in all of the fields.')
     
-    #rfmdl = lcdata.build_model()  #building model takes too long  on heroku - has 30 sec timeout
+    rfmdl = lcdata.build_model()  #building model takes too long  on heroku - has 30 sec timeout
     
-    print amount, term, grade, income
+    print amount, term, grade, income,home_ownership
     #Inputs to model
     X = pd.DataFrame({'loan_amnt':float(amount), 'term':term, 'grade':grade, 'annual_inc':float(income), 'home_ownership': home_ownership}, index = range(1))
     
-    with open('./data/rfclf_model.pkl', 'rb') as input:
-        rfmodel = pickle.load(input)
+    #with open('./data/rfclf_model.pkl', 'rb') as input:
+     #   rfmodel = pickle.load(input)
+   # X = pd.DataFrame({'loan_amnt':float(8000), 'term':'36mths', 'grade':'E', 'annual_inc':float(64000), 'home_ownership':'mortgage'}, index = range(1))
         
-    #f = open('./data/rfclf_model.pkl', 'r')
-    #rfmodel = pickle.load(f)          
-    #f.close()
-    
-    prob = rfmodel.predict_proba(X)
+       
+    #prob = rfmodel.predict_proba(X)
+        
+    prob = rfmdl.predict_proba(X)
+   
     print prob
-    #prob = rfmdl.predict_proba(X)
     result1 = '{:,.2%}'.format(prob[0][0])    
     return render_template('results.html', data = result1)
     
@@ -64,8 +64,6 @@ def get_lcdata_plots():
         with open('./data/df_data.pkl', 'rb') as data:
             data_df = pickle.load(data)
        
-        print 'in credit grade'
-        print len(data_df)
         if len(data_df):
             script, div = pltdata.plot_credit_grade_data(data_df)
             return render_template('graph_grade.html', script=script, div=div)
@@ -76,8 +74,8 @@ def get_lcdata_plots():
 def get_statedata_plots():
     if request.method == 'GET':
         #data_df = lcdata.get_lcdata()     #takes too long for heroku app
-        #with open('./data/df_data.pkl', 'rb') as data:
-           # data_df = pickle.load(data)
+        with open('./data/df_data.pkl', 'rb') as data:
+            data_df = pickle.load(data)
         if len(data_df):
             script, div = pltdata.plot_state_data(data_df)
             return render_template('graph_states.html', script=script, div=div)

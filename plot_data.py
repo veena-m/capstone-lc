@@ -19,7 +19,8 @@ def plot_loan_status(df):
     return script,div 
 
 def plot_state_data(df):
-   
+    
+    
     plot = Bar(df,'addr_state',legend=False,xlabel= 'By State',ylabel='Count of Borrowers',title='Borrowers by State',color=color(columns='addr_state'), width=1200, height=500)
     
     script, div = components(plot)
